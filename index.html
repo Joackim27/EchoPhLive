@@ -1,0 +1,193 @@
+<html>
+<head>
+	<title>Echo PH</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<style>
+		.navigation
+			{
+				width:100%;
+				margin:auto auto;
+				position:relative;
+			
+				height:100px;
+				padding-top:50px;
+				
+			}
+			.navigation table{position:relative;width:500px;left:300px;}
+					
+					
+				
+	</style>
+	
+</head>
+<body>
+	<div style='width:100%;margin:auto auto;text-align:right;'>
+		<div class="main">
+			<table>		
+				<tr>
+					<td>
+						<div class="logo">
+						<img src=logo2.png>
+						</div>
+					</td>
+			
+					<td>
+						<div class='navigation'>
+							<table>
+								<tr>
+								<script>
+									function ProductScroll()
+									{
+									window.scrollBy({ 
+									  top: 900, // could be negative value
+									  left: 0, 
+									  behavior: 'smooth' 
+									});
+									}
+									function AboutUsScroll()
+									{
+									window.scrollBy({ 
+									  top: 900, // could be negative value
+									  left: 0, 
+									  behavior: 'smooth' 
+									});
+									}
+								</script>
+								<td><a href="index.html"class="btn">Home<a/></td>
+								<td><a href="#"class="btn"onclick='return ProductScroll();'>Products<a/></td>
+								<td><a href="#"class="btn">Contact Us<a/></td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<header>		
+	<div class='SlidesDiv'>
+		<div class="mySlides fade">
+			<img src="1.png" style="width:100%">
+		</div>
+
+		<div class="mySlides fade">
+			<img src="2.png" style="width:100%">
+		</div>
+
+		<div class="mySlides fade">
+			<img src="3.png" style="width:100%">
+		</div>
+	</div>
+
+						<br>
+	<div style="text-align:center">
+		<span class="dot"></span> 
+		<span class="dot"></span> 
+		<span class="dot"></span> 
+	</div>
+	
+	<div class="title">
+	<h1>Echo</h1>
+	</div>
+	
+	<div class="tagline">
+	<h2>BE NATURE'S VOICE</h2>
+	</div>
+	<div class="button">
+	<a href="#" class="btn">Order Now</a>
+	<a href="#" class="btn">Watch Teaser</a>
+	</div>
+	
+	
+	</header>
+	<br>
+	
+	<div class="bg">
+	
+		<div class=products>
+		<h1 align=center>Products</h1>
+		</div>
+			<br>
+			<br>
+			<br>
+			
+		<div class="tala">
+				
+			<table>	
+				<tr>
+					<td rowspan='2'><img src="tala.png"></td>
+					<td>&nbsp;&nbsp;</td>
+					<td >TALA</td>
+				</tr>
+				<tr>
+					<td>&nbsp;&nbsp;</td>
+					<td width='600px'>
+						<p>	Tala is a handbag for sophisticated women who
+							needs or wants a big amount of space for their
+							everyday needs. The team named this handabag
+							“Tala” or bright star when translated into english.
+							We took this beautiful word for us to highlight that
+							this is our star design.
+						</p>
+					</td>
+				</tr>
+			</table>
+		
+		</div>
+		<br>
+	
+		<br>
+		<div class="tala">
+			
+			<table>	
+				<tr>
+					<td >Sinta</td>
+					<td>&nbsp;&nbsp;</td>						
+					<td rowspan='2'><img src="sinta.png"></td>
+				</tr>
+				<tr>
+					
+					<td width='600px'>
+						<p>	Echo PH decided to name this round crossbody bag “sinta,” because this means “my love” in english. 
+						This crossbody bag is aimed to be an everyday bag for the women of echo ph. This bag represents the everydaypresence of love in our lives.
+			
+						</p>
+					</td>
+					<td>&nbsp;&nbsp;</td>
+				</tr>
+			</table>
+			<br><br>
+	
+		</div>
+	
+
+			
+	</div>
+	
+
+</body>	
+
+		<script>
+				var slideIndex = 0;
+				showSlides();
+
+			function showSlides() {
+				  var i;
+				  var slides = document.getElementsByClassName("mySlides");
+				  var dots = document.getElementsByClassName("dot");
+				  for (i = 0; i < slides.length; i++) {
+					slides[i].style.display = "none";  
+				  }
+				  slideIndex++;
+				  if (slideIndex > slides.length) {slideIndex = 1}    
+				  for (i = 0; i < dots.length; i++) {
+					dots[i].className = dots[i].className.replace(" active", "");
+				  }
+				  slides[slideIndex-1].style.display = "block";  
+				  dots[slideIndex-1].className += " active";
+				  setTimeout(showSlides, 5000); // Change image every 2 seconds
+			}
+		</script>	
+
+
+</html>
