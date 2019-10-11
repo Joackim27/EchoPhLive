@@ -1,22 +1,64 @@
+<?php
+$con=new mysqli("localhost","root","usbw","db_echo");
+	if(isset($_POST["submitOrder"]))
+	{
+		$testing="";
+		if(isset($_POST["Tala"]))
+		{
+			$testing=$testing."Tala,";
+		}
+		
+		if(isset($_POST["Sinta"]))
+		{
+			$testing=$testing.",Sinta";
+		}
+		
+		if(isset($_POST["Sampaguita"]))
+		{
+			$testing=$testing.",Sampaguita";
+		}
+	
+		$Name=$_POST['Name'];
+		$Address=$_POST['Address'];
+		$CNumber=$_POST['Number'];
+		$Email=$_POST['Email'];
+		
+		
+		$SQLQuery="INSERT INTO tbl_orders(Name,Address,CNumber,Email,ProductOrdered,Status)VALUES('".$Name."','".$Address."','".$CNumber."','".$Email."','".$testing."','Ordered')";
+		if($con->query($SQLQuery)===TRUE)
+		{
+			echo"<script>alert('Successfully Ordered')</script>";
+		}
+		else
+		{
+			echo"<script>alert('".$con->error."')</script>";
+		}
+	}
+?>
 <html>
 <head>
 	<title>Echo PH</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<style>
-		.Ordernow{width:100%;margin:auto auto;height:130px;background-color:#d8a138;z-index:1;position:fixed;display:none;}
+		.Ordernow{width:100%;margin:auto auto;height:130px;background-color:#eee8dd;z-index:1;position:fixed;display:none;border:3px solid #000;}
 			.Ordernow table{width:100%;}
 	
 		.MenuButton{height:80px;width:80px;margin:auto auto;position:relative;background-color:white;}
-		.MenuDiv{height:100px;width:300px;position:relative;margin:auto auto;background-color:green;top:80px;display:none;}
-		.OrderNowDiv{height:600px;width:800px;margin:auto auto ;background-color:orange;top:100;z-index:3;position:fixed;left:400px;display:none;}
-
+	
+		.OrderNowDiv{height:600px;width:800px;margin:auto auto ;background-color:rgba(0,0,0,.2);top:100;z-index:3;position:fixed;left:400px;display:none;}
+			.OrderNowDiv button{background-color:inherit;position:relative;margin:auto auto;border:1px solid white;color:white;font:20px OPTIsupAuvantGothicBold;padding:10px 30px;}
+				.OrderNowDiv button:hover{background-color: #fff;color:#000;}
+			.OrderNowNavigation{width:200px;height:200px;display:none;position:fixed;}
+				.OrderNowNavigation table{height:100%;}
+				.OrderNowNavigation  a{background-color:#d8a138;}
+				
 
 
 
 			.order{
-					background-color: blue;
+					background-color:rgba(0,0,0,.5);;
 					height:100%;
-					}
+}
 
 					.heading{
 						text-align: center;
@@ -41,6 +83,7 @@
 					}
 
 					.forms{
+						color:white;
 						text-align: center;
 						position: relative;
 						top: 35%;
@@ -50,6 +93,10 @@
 					}
 				.page1{position:relative;top:200px;display:block;}
 				.page2{position:relative;top:200px;display:none;}
+				.texttable{
+					color:white;
+				}
+				
 				
 					
 	</style>
@@ -100,23 +147,89 @@
 			document.getElementsByClassName('page2')[0].style.display="none";
 
 		}
-		function submitOrder()
+		
+		function ProductScroll()
 		{
-			if(document.getElementsByName('Tala')[0].checked==true||document.getElementsByName('Sinta')[0].checked==true||document.getElementsByName('Sampaguita')[0].checked==true)
+		window.scrollBy({ 
+		  top: 1590, // could be negative value
+		  left: 0, 
+		  behavior: 'smooth' 
+		});
+		}
+		function AboutUsScroll()
+		{
+		window.scrollBy({ 
+		  top: 4220, // could be negative value
+		  left: 0, 
+		  behavior: 'smooth' 
+		});
+		}
+		function ContactUsScroll()
+		{
+		window.scrollBy({ 
+		  top: 6780, // could be negative value
+		  left: 0, 
+		  behavior: 'smooth' 
+		});
+		}
+		function OrderNowNavigationShow()
+		{
+			
+			if(document.getElementsByClassName('OrderNowNavigation')[0].style.display=="block")
 			{
-				alert('Submitted');
+				document.getElementsByClassName('OrderNowNavigation')[0].style.display="none";
 			}
 			else
 			{
-				alert('Please choose atleast one product');
+				document.getElementsByClassName('OrderNowNavigation')[0].style.display="block";
 			}
 		}
+
+									
 			
 
 	</script>
 	
 </head>
 <body>
+<form method='POST'>
+<div class='Ordernow'>
+					<table>
+						<tr>
+							<td><a href="#" class="btn1"onclick='return showOrderDiv();'>Order Now</a></td>
+							<td>
+								<div class="logo">
+									<img src=logo3.png>
+								</div>
+							</td>
+							<td rowspan='2'>
+								
+								<button name='btn_menuDiv'onclick='return OrderNowNavigationShow();'style='background-color: inherit;border:0px;'>
+									<img src=menu-button.png style="width:60px;height:auto;">
+								</button>
+									<div class='OrderNowNavigation'>
+										<table>
+											<tr>	
+												<td><a href="index.html"class="btn">Home<a/></td>
+											</tr>
+											<tr>
+												<td><a href="#"class="btn"id='Products'onclick='return ProductScroll();'>Products<a/></td>
+											</tr>
+											<tr>
+												<td><a href="#"class="btn"onclick='return ContactUsScroll();'>Contact Us<a/></td>
+											</tr>
+											<tr>
+												<td><a href="#"class="btn"onclick='return ContactUsScroll();'>About Us<a/></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								
+								
+							</td>
+						</tr>
+					</table>
+				</div>
 				<center>
 						<div class='OrderNowDiv'>
 								<div class='order'>
@@ -128,6 +241,8 @@
 										<div class='page1'>
 											<div class=forms>
 													Name
+													<br>
+													(Last Name, First Name)
 													<br>
 												<input type="text" name="Name">
 													<br>
@@ -144,16 +259,16 @@
 										  			<br>
 										  			Email(optional)
 										  			<br>
-										  		<input type="text" name="email">
+										  		<input type="text" name="Email">
 										  			<br>
 										  			<br>
 									  			<table style='position:relative;margin:auto auto;'>
 									  				<tr>
 									  					<td>
-									  						<a href="#" class="btn1"onclick='return cancelOrder();'>Cancel</a>
+									  						<a href="#" class="btn"onclick='return cancelOrder();'>Cancel</a>
 									  					</td>
 									  					<td>
-									  						<a href="#" class="btn1"onclick='return nextPage();'>Next</a>
+									  						<a href="#" class="btn"onclick='return nextPage();'>Next</a>
 									  					</td>
 									  				</tr>
 									  			</table>
@@ -162,41 +277,41 @@
 								  		<div class='page2'>
 
 								  				
-													<div class=forms>
-													<center><table>
-										  			<tr>
-										  				<td colspan='2'>
-										  					<input type="checkbox" name="Tala">Tala
-										  					<br>
-										  					<img src="tala1.png" style="width:230px;height:auto;">
-										  				</td>
-										  				<td colspan='2'>
-										  					<input type="checkbox" name="Sinta"> Sinta
-										  					<br>
-													  		<img src="sinta1.png" style="width:230px;height:auto;">
+													<div class=forms><div class=texttable>
+														<center><table>
+											  			<tr>
+											  				<td colspan='2'>
+											  					<input type="checkbox" name="Tala">Tala
+											  					<br>
+											  					<img src="tala1.png" style="width:230px;height:auto;">
+											  				</td>
+											  				<td colspan='2'>
+											  					<input type="checkbox" name="Sinta"> Sinta
+											  					<br>
+														  		<img src="sinta1.png" style="width:230px;height:auto;">
 
-										  				</td>
-										  				<td colspan='2'>
-										  					<input type="checkbox" name="Sampaguita"> Sampaguita
-										  					<br>
-													  		<img src="4.png" style="width:230px;height:auto;">
+											  				</td>
+											  				<td colspan='2'>
+											  					<input type="checkbox" name="Sampaguita"> Sampaguita
+											  					<br>
+														  		<img src="4.png" style="width:230px;height:auto;">
 
-										  				</td>
+											  				</td>
 
-										  			</tr>
-										  			<tr>
-										  				<td colspan='2'>
-									  					<td>
-									  						<a href="#" class="btn1"onclick='return backPage();'>Back</a>
-									  					</td>
-									  					<td>
-									  						<a href="#" class="btn1"onclick='return submitOrder()'>Submit</a>
-									  					</td>
-									  				</tr>
-	
-										  		
-												</table></center>  	
-												</div>
+											  			</tr>
+											  			<tr>
+											  				<td colspan='2'>
+										  					<td>
+										  						<a href="#" class="btn"onclick='return backPage();'>Back</a>
+										  					</td>
+										  					<td>
+										  						<button type='submit'name='submitOrder'>Submit</button>
+										  					</td>
+										  				</tr>
+		
+											  		
+													</table></center>  	
+												</div></div>
 
 								  		</div>
 															  	
@@ -207,34 +322,7 @@
 					</center>
 	<div class='wrapper'>
 			
-				<div class='Ordernow'>
-					<table>
-						<tr>
-							<td><a href="#" class="btn1"onclick='return showOrderDiv();'>Order Now</a></td>
-							<td>
-								<div class="logo">
-									<img src=logo3.png>
-								</div>
-							</td>
-							<td rowspan='2'>
-								<script>
-									function showNavigation()
-									{
-										document.getElementsByClassName('MenuDiv')[0].style.dispay="block";
-									}
-								</script>
-								<input type='button'name='btn_menuDiv'onclick='return showNavigation();'value='|||'>
-								<img src=menu-button.png style="width:60px;height:auto;">
-									<div ID='MenuDiv'>
-									Testing
-									</div>
-								</div>
-								
-								
-							</td>
-						</tr>
-					</table>
-				</div>
+			
 					
 		<div style='width:100%;margin:auto auto;text-align:right;'>
 			<div class="main">
@@ -250,33 +338,7 @@
 							<div class='navigation'>
 								<table>
 									<tr>
-										<script>
-										function ProductScroll()
-										{
-										window.scrollBy({ 
-										  top: 1590, // could be negative value
-										  left: 0, 
-										  behavior: 'smooth' 
-										});
-										}
-										function AboutUsScroll()
-										{
-										window.scrollBy({ 
-										  top: 4220, // could be negative value
-										  left: 0, 
-										  behavior: 'smooth' 
-										});
-										}
-										function ContactUsScroll()
-										{
-										window.scrollBy({ 
-										  top: 6780, // could be negative value
-										  left: 0, 
-										  behavior: 'smooth' 
-										});
-										}
-
-										</script>
+										
 									<td><a href="index.html"class="btn">Home<a/></td>
 									<td><a href="#"class="btn"id='Products'onclick='return ProductScroll();'>Products<a/>
 									
@@ -332,7 +394,7 @@
 				<h2>BE NATURE'S VOICE</h2>
 			</div>
 			<div class="button">
-				<a href="#" class="btn">Order Now</a>
+				<a href="#" class="btn"onclick='return showOrderDiv();'>Order Now</a>
 				<a href="#" class="btn"onclick='return AboutUsScroll();'>About Us</a>
 			</div>
 			
@@ -363,7 +425,7 @@
 							</div>
 							<div class="details">
 								<h3>Pre-Order Now!</h3>
-								<p>This is an update This is an update This is an update This is an update This is an update </p>
+								<p>Thank you for waiting! Echo PH is finally open for Pre Orders! To get your very own Abaca Bags, please contact us through Facebook or Instagram, provide us with the necessary information, and wait for your Abaca Bags to arrive!</p>
 								<div style=clear:both></div>
 							</div>
 					</li> 
@@ -372,18 +434,25 @@
 								<h2>3<br><br><span> October</span></h2>
 							</div>
 							<div class="details">
-								<h3>First Update of Echo PH</h3>
-								<p>This is an update This is an update This is an update This is an update This is an update </p>
+								<h3>Our Soft Opening!</h3>
+								<p>If you ever want to check out our products for yourselves, feel free to drop by on October 3, in the DLSU Integrated Campus Lobby! We're on the leftmost side, right next to 4See and Vanilla, and it's really hard to miss. 
+
+Check us out!
+</p>
 								<div style=clear:both></div>
 							</div>
 					</li> 
 					<li>
 							<div class=time>
-								<h2>3<br><br><span> October</span></h2>
+								<h2>11<br><br><span> October</span></h2>
 							</div>
 							<div class="details">
-								<h3>First Update of Echo PH</h3>
-								<p>This is an update This is an update This is an update This is an update This is an update </p>
+								<h3>Did you miss us?</h3>
+								<p>Did you miss out on your chance to buy from us last October 3? Don't worry! 
+
+There's still another bazaar to be held on October 11, and you can always just contact any member of our management team to place an order!
+
+Just go to our contact page for more information!</p>
 								<div style=clear:both></div>
 							</div>
 					</li> 
@@ -442,8 +511,8 @@
 					  <img src="tala3.png" style="width:100%">
 					</div>
 
-					<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-					<a class="next" onclick="plusSlides(1)">&#10095;</a>
+					<a class="prev" onclick="plusSlides0(-1)">&#10094;</a>
+					<a class="next" onclick="plusSlides0(1)">&#10095;</a>
 					<div class=sidetext>
 						<h1>Tala</h1>
 					</div>
@@ -455,12 +524,12 @@
 									showSlides2(slideIndex2);
 
 									// Next/previous controls
-									function plusSlides(n) {
+									function plusSlides0(n) {
 									  showSlides2(slideIndex2 += n);
 									}
 
 									// Thumbnail image controls
-									function currentSlide(n) {
+									function currentSlide0(n) {
 									  showSlides2(slideIndex2 = n);
 									}
 
@@ -521,8 +590,8 @@
 					  <img src="sinta3.png" style="width:100%">
 					</div>
 
-					<a class="prev1" onclick="plusSlides(-1)">&#10096;</a>
-					<a class="next1" onclick="plusSlides(1)">&#10097;</a>\
+					<a class="prev1" onclick="plusSlides2(-1)">&#10096;</a>
+					<a class="next1" onclick="plusSlides2(1)">&#10097;</a>\
 					<div class=sidetext1>
 						<h1>Sinta</h1>
 					</div>
@@ -534,12 +603,12 @@
 									showSlides3(slideIndex3);
 
 									// Next/previous controls
-									function plusSlides(n) {
+									function plusSlides2(n) {
 									  showSlides3(slideIndex3 += n);
 									}
 
 									// Thumbnail image controls
-									function currentSlide(n) {
+									function currentSlide2(n) {
 									  showSlides3(slideIndex3 = n);
 									}
 
@@ -568,7 +637,7 @@
 				
 				<table>	
 					<tr>
-						<td rowspan='2'><img src="sample2.png"></td>
+						<td rowspan='2'><img src="sampaguita1.png"></td>
 						<td><h1>SAMPAGUITA<h1></td>
 						<td>&nbsp;&nbsp;</td>						
 						<td rowspan='2'></td>
@@ -576,8 +645,9 @@
 					<tr>
 						
 						<td width='600px'>
-							<p>This is Sampaguita's Description This is Sampaguita's Description This is Sampaguita's Description 
-							This is Sampaguita's Description This is Sampaguita's Description This is Sampaguita's Description
+							<p>The sampaguita spells simplicity. Elegance. Beauty. 
+It is no wonder that the Philippines chose the sampaguita as its national flower, adorning saints, used as perfume, and sold anywhere in the country.
+Echo PH elevates the sampaguita into something even more than the sum of its parts. The flowing, vine-like appearance of sampaguita wreaths can be seen in the bag, particularly because of its distinctive shoulder strap and handbag that seems to lovingly adorn the wearer's shoulders. 
 							</p>
 						</td>
 						<td>&nbsp;&nbsp;</td>
@@ -586,7 +656,7 @@
 				</div>	
 				
 				<div class="slideshow-container3">
-
+<br>
 					<div class="mySlides4 fade">
 					  <img src="4.png" style="width:100%">
 					</div>
@@ -687,8 +757,8 @@
 						<div class="texts">
 							<ul>
 							<li>
-								<p>&nbsp;&nbsp;Help our environment</p></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<li><p>&nbsp;&nbsp;&nbsp;&nbsp;Sell eco-friendly</p></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<p>Help our environment</p></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><p>&nbsp;&nbsp;&nbsp;&nbsp;Sell eco-friendly</p></li>&nbsp;
 							<li><p>&nbsp;&nbsp;Promote Local Products</p></li>
 						</ul>
 						</div>
@@ -717,7 +787,7 @@
 		
 			</div>
 	</div>	
-	
+</form>
 </body>	
 
 </html>

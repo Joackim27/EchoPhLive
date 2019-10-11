@@ -347,6 +347,10 @@ background-size:cover;
 	background-image:url(../sampaguitabg.png); 
 }
 
+.SampaguitaP p{
+	font-size: 18px;
+}
+
 .SlidesDiv{
 	height:100%;
 	z-index: 2;
